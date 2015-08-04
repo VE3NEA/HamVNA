@@ -9,7 +9,7 @@ unit VnaCli;
 interface
 
 uses
-  Windows, SysUtils, Classes, ExtCtrls, Math, ComplMath,
+  Windows, SysUtils, Classes, ExtCtrls, Math, ComplMath, UdpBrdCast,
   IdBaseComponent, IdComponent, IdUDPBase, IdUDPServer, IdSocketHandle, IdGlobal;
 
 
@@ -228,12 +228,15 @@ const
   DISCOVERY_PACKET_SIZE = 63;
 var
   Bytes: TBytes;
+  Ip: string;
 begin
   //send discovery packet
   Bytes := nil;
   SetLength(Bytes, DISCOVERY_PACKET_SIZE);
   Move(DiscoveryPacket, Bytes[0], Length(DiscoveryPacket));
-  FUdp.Broadcast(Bytes, HERMES_PORT);
+
+  for Ip in GetBroadcastAddresses do
+    FUdp.Broadcast(Bytes, HERMES_PORT, Ip);
 
   Clipping := false;
   MissedPackets := false;

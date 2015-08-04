@@ -4,6 +4,8 @@
 
 //Copyright (c) 2013 Alex Shovkoplyas VE3NEA
 
+// JCL_DEBUG_EXPERT_GENERATEJDBG OFF
+// JCL_DEBUG_EXPERT_INSERTJDBG OFF
 program HamVNA;
 
 uses
@@ -27,7 +29,9 @@ uses
   LaPackWrap in '..\..\VCL\Math\LaPackWrap.pas',
   VectFitt in '..\..\VCL\Math\VectFitt.pas',
   RlcFrm in 'RlcFrm.pas' {RlcFrame: TFrame},
-  AboutDlg in 'AboutDlg.pas' {AboutDialog};
+  AboutDlg in 'AboutDlg.pas' {AboutDialog},
+  UdpBrdCast in '..\..\VCL\AlNet\UdpBrdCast.pas',
+  JwaIpTypes in '..\..\VCL3RD\Jwa\JwaIpTypes.pas';
 
 {$R *.res}
 
