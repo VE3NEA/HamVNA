@@ -137,7 +137,8 @@ end;
 procedure TCalibrationData.SaveToFile(AFileName: TFileName);
 var
   Ini: TIniFile;
-
+  Fs: TFileStream;
+{
   procedure SaveArray(Arr: TScanArray; Name: string);
   var Pt: TScanPoint;
   begin
@@ -146,26 +147,43 @@ var
         Ini.WriteString(Name, Format('%.8d', [Pt.Freq]),
           Format('%13.10f|%13.10f|%13.10f', [Pt.Value.Re, Pt.Value.Im, Sqrt(Pt.Variance)]));
   end;
+}
+  procedure AppendArray(Arr: TScanArray; Name: AnsiString);
+  var Pt: TScanPoint; S: AnsiString;
+  begin
+    if Arr = nil then Exit;
+    S := Format('[%s]'#13#10, [Name]);
+    Fs.WriteBuffer(S[1], Length(S));
+    for Pt in Arr do
+      begin
+      S := Format('%.8d=%13.10f|%13.10f|%13.10f'#13#10, [Pt.Freq, Pt.Value.Re, Pt.Value.Im, Sqrt(Pt.Variance)]);
+      Fs.WriteBuffer(S[1], Length(S));
+      end;
+  end;
 begin
+  {$IFDEF VER260}System.SysUtils.FormatSettings.{$ENDIF}DecimalSeparator := '.';
   if FileExists(AFileName) then DeleteFile(AFileName);
 
-  {$IFDEF VER260}System.SysUtils.FormatSettings.{$ENDIF}DecimalSeparator := '.';
+  //save scalars
   Ini := TIniFile.Create(AFileName);
   try
     Ini.WriteInteger('Settings', 'FreqB', FreqB);
     Ini.WriteInteger('Settings', 'FreqE', FreqE);
     Ini.WriteInteger('Settings', 'PointCnt', PointCnt);
     Ini.WriteBool('Settings', 'Attenuator', Atten);
+  finally Ini.Free; end;
 
-    SaveArray(DataO, 'Open');
-    SaveArray(DataS, 'Short');
-    SaveArray(DataL, 'Load');
+  //append arrays
+  Fs := TFileStream.Create(AFileName, fmOpenReadWrite);
+  try
+    Fs.Seek(0, soEnd);
+    AppendArray(DataO, 'Open');
+    AppendArray(DataS, 'Short');
+    AppendArray(DataL, 'Load');
+  finally Fs.Free; end;
 
-    FileName := AFileName;
-    Changed := false;
-  finally
-    Ini.Free;
-  end;
+  FileName := AFileName;
+  Changed := false;
 end;
 
 
