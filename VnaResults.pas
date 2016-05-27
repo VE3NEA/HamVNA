@@ -42,7 +42,7 @@ type
   TVnaResults = class
   private
     function ComputeDelay(AData: TScanArray): TPlotArray;
-    {$IFDEF DEBUG_MODE}procedure AnalyzeDelay;{$ENDIF}
+//    {$IFDEF DEBUG_MODE}procedure AnalyzeDelay;{$ENDIF}
   public
     RawData, CorrectedData: TScanArray;
     Params: array[TVnaParam] of TPlotArray;
@@ -276,6 +276,7 @@ end;
 
 
 {$IFDEF DEBUG_MODE}
+{
 procedure TVnaResults.AnalyzeDelay;
 var
   i: integer;
@@ -307,6 +308,7 @@ begin
       Free;
     end;
 end;
+}
 {$ENDIF}
 
 

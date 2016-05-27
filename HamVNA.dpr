@@ -14,7 +14,7 @@ uses
   ChartFrm in 'ChartFrm.pas' {ChartFrame: TFrame},
   VnaCli in 'VnaCli.pas',
   ProgrDlg in 'ProgrDlg.pas' {ProgressDialog},
-  ComplMath in '..\..\VCL\Math\ComplMath.pas',
+  ComplMath in 'Lib\ComplMath.pas',
   CalibDlg in 'CalibDlg.pas' {CalibrationDialog},
   Ini in 'Ini.pas',
   Calibr in 'Calibr.pas',
@@ -23,15 +23,15 @@ uses
   SmithFrm in 'SmithFrm.pas' {SmithChartFrame: TFrame},
   TouchStone in 'TouchStone.pas',
   Plot in 'Plot.pas',
-  AngleTxt in '..\..\VCL\AlCommon\AngleTxt.pas',
+  AngleTxt in 'Lib\AngleTxt.pas',
   RlcFit in 'RlcFit.pas',
-  SndTypes0 in '..\..\VCL\SND\SndTypes0.pas',
-  LaPackWrap in '..\..\VCL\Math\LaPackWrap.pas',
-  VectFitt in '..\..\VCL\Math\VectFitt.pas',
+  SndTypes0 in 'Lib\SndTypes0.pas',
+  LaPackWrap in 'Lib\LaPackWrap.pas',
+  VectFitt in 'Lib\VectFitt.pas',
   RlcFrm in 'RlcFrm.pas' {RlcFrame: TFrame},
   AboutDlg in 'AboutDlg.pas' {AboutDialog},
-  UdpBrdCast in '..\..\VCL\AlNet\UdpBrdCast.pas',
-  JwaIpTypes in '..\..\VCL3RD\Jwa\JwaIpTypes.pas';
+  UdpBrdCast in 'Lib\UdpBrdCast.pas',
+  JwaIpTypes in 'Lib\JwaIpTypes.pas';
 
 {$R *.res}
 

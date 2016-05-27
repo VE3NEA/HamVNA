@@ -95,7 +95,7 @@ type
     property OnPacket: TDataEvent read FOnPacket write FOnPacket;
     //a block of required number of samples received (in multiple udp packets)
     property OnBlock: TDataEvent read FOnBlock write FOnBlock;
-    //block received and processed at every scan frequency
+    //blocks received and processed at all scan frequencies
     property OnScan: TScanEvent read FOnScan write FOnScan;
   end;
 
@@ -517,8 +517,8 @@ begin
 
   SetLength(FBlock, FBlockSize);
 
-  //if start marker not found in the first 8 packets, start anyway
-  FCurrentPos := - 8 * SAMPLES_PER_PACKET;
+  //if start marker not found in the first 100 packets, start anyway
+  FCurrentPos := - 100 * SAMPLES_PER_PACKET;
 
   //set frequency, start receiving packets
   Clipping := false;
